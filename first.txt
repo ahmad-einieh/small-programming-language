@@ -1,0 +1,14 @@
+KEYWORD     print|push|pop|add|mul|sub|div
+
+%%
+
+{KEYWORD}   { printf("keyword", yytext); }
+
+%%
+int yywarp(void) { return 1; }
+int main(){
+    printf("Enter the expression: ");
+    yylex();
+    system("pause");
+    return 0;
+}
