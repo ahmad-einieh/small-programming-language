@@ -9,25 +9,14 @@
 "sub" { return sub; }
 "mul" { return mul; }
 "divi" { return divi; }
+"mod" { return mod; }
 "print" { return print; }
-[1-9][0-9]* { return number; }
+";"     { return yytext[0]; }
+"exit"  { return exit_command;}
+[1-9][0-9]* { yylval.num = atoi(yytext); return number; }
 
 %%
 int yywrap()
 {
     return 1;
-}
-// int main()
-// {
-//     yylex();
-//     return 0;
-// }
-int main(){
-    int ntoken ,vtoken;
-    ntoken = yylex();
-    while(ntoken){
-        //printf("%d\n",ntoken);
-        ntoken = yylex();
-    }
-    return 0;
 }

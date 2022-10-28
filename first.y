@@ -1,22 +1,25 @@
 %{
 
     void yyerror(char *s);
+    int yylex();
     #include <stdio.h>
     #include <stdlib.h>
     int stack[2];
-    void print();
-    void push(int x);
-    int pop();
-    void add();
-    void sub();
-    void mul();
-    void divi();
+    void printElement();
+    void pushElement(int x);
+    int popElement();
+    void addElement();
+    void subElement();
+    void mulElement();
+    void diviElement();
+    void modElement();
     int counter = 0;
 %}
 
 %union {
     int num;
 }
+
 %start Program
 %token pop
 %token push
@@ -25,13 +28,15 @@
 %token mul
 %token divi
 %token print
+%token mod
 %token <num> number
+%token exit_command
 
 
 %%
 
 Program : SupProgram ';' Program    {;}
-        | SupProgram
+        | SupProgram            {;}
         ;
 SupProgram  :print          {printElement();}
             |push number    {pushElement($2);}
@@ -40,14 +45,12 @@ SupProgram  :print          {printElement();}
             |mul            {mulElement();}
             |sub            {subElement();}
             |divi           {diviElement();}
+            |exit_command   {exit(EXIT_SUCCESS);}
+            |mod            {modElement();}
             ;
 
 %%
 
-int yywrap()
-{
-    return 1;
-}
 
 int main(void)
 {
@@ -58,9 +61,7 @@ int main(void)
 
 void printElement()
 {
-    printf("%d, ", stack[0]);
-    printf("%d, ", stack[1]);
-
+    printf("%d\n", stack[0]);
 }
 
 void pushElement(int x)
@@ -71,36 +72,43 @@ void pushElement(int x)
 
 int popElement()
 {
-    counter--
+    counter--;
     return stack[counter];
 }
 
 void addElement()
 {
-    int a = pop();
-    int b = pop();
-    push(a+b);
+    int a = popElement();
+    int b = popElement();
+    pushElement(a+b);
 }
 
 void subElement()
 {
-    int a = pop();
-    int b = pop();
-    push(a-b);
+    int a = popElement();
+    int b = popElement();
+    pushElement(a-b);
 }
 
 void mulElement()
 {
-    int a = pop();
-    int b = pop();
-    push(a*b);
+    int a = popElement();
+    int b = popElement();
+    pushElement(a*b);
 }
 
 void diviElement()
 {
-    int a = pop();
-    int b = pop();
-    push(a/b);
+    int a = popElement();
+    int b = popElement();
+    pushElement(a/b);
+}
+
+void modElement()
+{
+    int a = popElement();
+    int b = popElement();
+    pushElement(a%b);
 }
 
 
