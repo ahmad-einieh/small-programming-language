@@ -10,7 +10,7 @@
     void add();
     void sub();
     void mul();
-    void div();
+    void divi();
     int counter = 0;
 %}
 
@@ -23,7 +23,7 @@
 %token add
 %token sub
 %token mul
-%token div
+%token divi
 %token print
 %token <num> number
 
@@ -33,13 +33,13 @@
 Program : SupProgram ';' Program    {;}
         | SupProgram
         ;
-SupProgram  :print          {print();}
-            |push number    {push($2);}
-            |pop            {pop();}
-            |add            {add();}
-            |mul            {mul();}
-            |sub            {sub();}
-            |div            {div();}
+SupProgram  :print          {printElement();}
+            |push number    {pushElement($2);}
+            |pop            {popElement();}
+            |add            {addElement();}
+            |mul            {mulElement();}
+            |sub            {subElement();}
+            |divi           {diviElement();}
             ;
 
 %%
@@ -49,50 +49,54 @@ int yywrap()
     return 1;
 }
 
-int main()
+int main(void)
 {
-    
+    stack[0]=0;
+    stack[1]=0;
     return yyparse();;
 }
 
-void print()
+void printElement()
 {
     printf("%d, ", stack[0]);
+    printf("%d, ", stack[1]);
+
 }
 
-void push(int x)
+void pushElement(int x)
 {
     stack[counter] = x;   
     counter++; 
 }
 
-int pop()
+int popElement()
 {
-    return stack[counter--];
+    counter--
+    return stack[counter];
 }
 
-void add()
+void addElement()
 {
     int a = pop();
     int b = pop();
     push(a+b);
 }
 
-void sub()
+void subElement()
 {
     int a = pop();
     int b = pop();
     push(a-b);
 }
 
-void mul()
+void mulElement()
 {
     int a = pop();
     int b = pop();
     push(a*b);
 }
 
-void div()
+void diviElement()
 {
     int a = pop();
     int b = pop();
@@ -102,6 +106,6 @@ void div()
 
 void yyerror(char *s)
 {
-    printf("Error: %s\n", s);
+    printf("Error: %s", s);
 }
 

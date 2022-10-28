@@ -1,17 +1,33 @@
-KEYWORD     print|push|pop|add|mul|sub|div
-int         [0-9]+
+%{
+#include "first.tab.h"    
+%}
 
 %%
-
-{KEYWORD}   { return KEYWORD; }
-{int}       { return int; }
-\n          { return newline; }
+"pop" { return pop; }
+"push" { return push; }
+"add" { return add; }
+"sub" { return sub; }
+"mul" { return mul; }
+"divi" { return divi; }
+"print" { return print; }
+[1-9][0-9]* { return number; }
 
 %%
-int yywrap() { return 1; }
+int yywrap()
+{
+    return 1;
+}
+// int main()
+// {
+//     yylex();
+//     return 0;
+// }
 int main(){
-    printf("Enter the expression: ");
-    yylex();
-    system("pause");
+    int ntoken ,vtoken;
+    ntoken = yylex();
+    while(ntoken){
+        //printf("%d\n",ntoken);
+        ntoken = yylex();
+    }
     return 0;
 }
