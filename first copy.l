@@ -3,9 +3,10 @@ int         [0-9]+
 
 %%
 
-{KEYWORD}   { return KEYWORD; }
-{int}       { return int; }
-\n          { return newline; }
+{KEYWORD}   { printf("keyword", yytext); }
+{int}       { printf("int", yytext); }
+;           { printf("semicolon", yytext); }
+\n          { printf("newline", yytext); }
 
 %%
 int yywrap() { return 1; }
