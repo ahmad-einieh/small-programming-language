@@ -46,8 +46,9 @@
      mul = 262,
      divi = 263,
      print = 264,
-     number = 265,
-     exit_command = 266
+     mod = 265,
+     number = 266,
+     exit_command = 267
    };
 #endif
 
@@ -65,7 +66,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 69 "first.tab.h"
+#line 70 "first.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

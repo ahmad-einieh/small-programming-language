@@ -1,7 +1,6 @@
 %{
-
-    void yyerror(char *s);
     int yylex();
+    void yyerror(char *s);
     #include <stdio.h>
     #include <stdlib.h>
     int stack[2];
