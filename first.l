@@ -14,6 +14,7 @@
 ";"     { return yytext[0]; }
 "exit"  { return exit_command;}
 [1-9][0-9]* { yylval.num = atoi(yytext); return number; }
+.       { ; }
 
 %%
 int yywrap()
