@@ -3,7 +3,7 @@
     void yyerror(char *s);
     #include <stdio.h>
     #include <stdlib.h>
-    int stack[2];
+    int stack[512];
     void printElement();
     void pushElement(int x);
     int popElement();
@@ -60,7 +60,7 @@ int main(void)
 
 void printElement()
 {
-    printf("%d\n", stack[0]);
+    printf("%d\n", stack[counter-1]);
 }
 
 void pushElement(int x)
