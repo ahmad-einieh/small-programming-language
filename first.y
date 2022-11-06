@@ -100,7 +100,7 @@ void diviElement()
 {
     int a = popElement();
     int b = popElement();
-    pushElement(a/b);
+    pushElement(b/a);
 }
 
 void modElement()
